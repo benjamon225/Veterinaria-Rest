@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>CRUD MongoDB</title>
+
+</head>
+
+<body>
+    <div>
+        <nav class="navbar navbar-expand-lg bg-light">
+            <div class="container-fluid">
+                <div class="collapse navbar-collapse" id="navbarScroll">
+                    <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/mascotas">Mascotas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/veterinarios">Veterinarios</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">Cerrar Sesion</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <div class="container">
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <div class="shadow-lg p-3 mb-4 mt-4 bg-body rounded">
+                    <h4>Registro de mascota</h4>
+
+                    <form action="/editar" method="POST">
+                        <input name="id" id="id" type="text" value="<%= mascotas.id %>" hidden>
+                        <div class="col-md-6">
+                            <label for="nombre" class="form-label">Nombre</label>
+                            <input id="nombre" name="nombre" type="text" class="form-control"
+                                value="<%= mascotas.nombre %>">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="edad" class="form-label">Edad</label>
+                            <input id="edad" name="edad" type="number" class="form-control" value="<%= mascotas.edad %>"
+                                required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="especie" class="form-label">Especie</label>
+                            <input id="especie" name="especie" type="text" class="form-control"
+                                value="<%= mascotas.especie %>" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="raza" class="form-label">Raza</label>
+                            <input id="raza" name="raza" type="text" class="form-control" value="<%= mascotas.raza %>"
+                                required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="diagnostico" class="form-label">Diagnostico</label>
+                            <textarea name="diagnostico" id="diagnostico" cols="26" rows="5" required><%= mascotas.diagnostico %></textarea>
+                        </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-6">
+                <div class="shadow-lg p-3 mb-4 mt-4 bg-body rounded">
+                    <h4 class="mb-3 mt-4">Informacion del duenio</h4>
+                    <div class="col-md-6">
+                        <label for="nombre_d" class="form-label">Nombre</label>
+                        <input id="nombre_d" name="nombre_d" type="text" class="form-control"
+                            value="<%= mascotas.duenioNombre%>">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="apellido_d" class="form-label">Apellido</label>
+                        <input id="apellido_d" name="apellido_d" type="text" class="form-control"
+                            value="<%= mascotas.duenioApellido%>" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="telefono_d" class="form-label">Telefono</label>
+                        <input id="telefono_d" name="telefono_d" type="text" class="form-control"
+                            value="<%= mascotas.duenioTelefono%>" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="email_d" class="form-label">Email</label>
+                        <input id="email_d" name="email_d" type="text" class="form-control"
+                            value="<%= mascotas.duenioEmail%>" required>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <button type="submit" class="w-100 btn btn-guardar btn-lg"><i class="bi bi-save"></i>Editar info</button>
+        <a type="button" href="/mascotas" class="w-100 btn btn-guardar btn-lg mt-2">Volver </a>
+        </form>
+    </div>
+
+    </div>
+    <style>
+        .container {
+            max-width: 960px;
+        }
+
+        body {
+            background-color: #330033;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 800 800'%3E%3Cg fill='none' stroke='%23404' stroke-width='1'%3E%3Cpath d='M769 229L1037 260.9M927 880L731 737 520 660 309 538 40 599 295 764 126.5 879.5 40 599-197 493 102 382-31 229 126.5 79.5-69-63'/%3E%3Cpath d='M-31 229L237 261 390 382 603 493 308.5 537.5 101.5 381.5M370 905L295 764'/%3E%3Cpath d='M520 660L578 842 731 737 840 599 603 493 520 660 295 764 309 538 390 382 539 269 769 229 577.5 41.5 370 105 295 -36 126.5 79.5 237 261 102 382 40 599 -69 737 127 880'/%3E%3Cpath d='M520-140L578.5 42.5 731-63M603 493L539 269 237 261 370 105M902 382L539 269M390 382L102 382'/%3E%3Cpath d='M-222 42L126.5 79.5 370 105 539 269 577.5 41.5 927 80 769 229 902 382 603 493 731 737M295-36L577.5 41.5M578 842L295 764M40-201L127 80M102 382L-261 269'/%3E%3C/g%3E%3Cg fill='%23505'%3E%3Ccircle cx='769' cy='229' r='5'/%3E%3Ccircle cx='539' cy='269' r='5'/%3E%3Ccircle cx='603' cy='493' r='5'/%3E%3Ccircle cx='731' cy='737' r='5'/%3E%3Ccircle cx='520' cy='660' r='5'/%3E%3Ccircle cx='309' cy='538' r='5'/%3E%3Ccircle cx='295' cy='764' r='5'/%3E%3Ccircle cx='40' cy='599' r='5'/%3E%3Ccircle cx='102' cy='382' r='5'/%3E%3Ccircle cx='127' cy='80' r='5'/%3E%3Ccircle cx='370' cy='105' r='5'/%3E%3Ccircle cx='578' cy='42' r='5'/%3E%3Ccircle cx='237' cy='261' r='5'/%3E%3Ccircle cx='390' cy='382' r='5'/%3E%3C/g%3E%3C/svg%3E");
+        }
+    </style>
+</body>
+
+</html>

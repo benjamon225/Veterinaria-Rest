@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <title>CRUD MongoDB</title>
+
+</head>
+
+<body class="fondo">
+    <nav class="navbar navbar-expand-lg bg-light">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse" id="navbarScroll">
+                <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/mascotas">Mascotas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/veterinarios">Veterinarios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Cerrar Sesion</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="shadow-lg p-3 mb-5 mt-4 bg-body rounded">
+                    <h4>Registro de mascota</h4>
+                    <form action="/crear" method="POST">
+                        <div class="col-md-6">
+                            <label for="nombre" class="form-label">Nombre</label>
+                            <input id="nombre" name="nombre" type="text" class="form-control" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="edad" class="form-label">Edad</label>
+                            <input id="edad" name="edad" type="number" class="form-control" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="especie" class="form-label">Especie</label>
+                            <input id="especie" name="especie" type="text" class="form-control" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="raza" class="form-label">Raza</label>
+                            <input id="raza" name="raza" type="text" class="form-control" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="diagnostico" class="form-label">Diagnostico</label>
+                            <textarea name="diagnostico" id="diagnostico" cols="10" rows="5"
+                                class="form-control"></textarea>
+                        </div>
+                </div>
+                <div>
+
+                </div>
+
+            </div>
+            <div class="col-md-6">
+                <div class="shadow-lg p-3 mb-5 mt-4 bg-body rounded">
+                    <h4 class="mb-3 mt-4">Informacion del dueño</h4>
+                    <div class="col-md-6">
+                        <label for="nombre_d" class="form-label">Nombre</label>
+                        <input id="nombre_d" name="nombre_d" type="text" class="form-control" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="apellido_d" class="form-label">Apellido</label>
+                        <input id="apellido_d" name="apellido_d" type="text" class="form-control" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="telefono_d" class="form-label">Telefono</label>
+                        <input id="telefono_d" name="telefono_d" type="text" class="form-control" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="email_d" class="form-label">Email</label>
+                        <input id="email_d" name="email_d" type="email" class="form-control" required>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <button type="submit" class="w-100 btn btn-guardar btn-lg"><i class="bi bi-save"></i>Registrar
+                Carga</button>
+            </form>
+        </div>
+        <!-- Tabla Mascotass  -->
+        <form class=" mt-4">
+
+            <input class="input-group mb-3" placeholder="Busqueda" id="searchTerm" type="text" onkeyup="doSearch()" />
+        
+            </form>
+        <table id="tablaMascotas" class="table mt-4 shadow-lg p-3 mb-5 mt-4 bg-body rounded">
+            <thead>
+                <tr>
+                    <th style="display: none;">ID</th>
+                    <th>Nombre</th>
+                    <th>Edad</th>
+                    <th>Especie</th>
+                    <th>Raza</th>
+                    <th>Diagnostico</th>
+                    <th>Mas Info</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% mascotas.forEach( (mascota)=>{ %>
+                    <tr>
+                        <td style="display: none;">
+                            <%= mascota._id %>
+                        </td>
+                        <td>
+                            <%= mascota.nombre %>
+                        </td>
+                        <td>
+                            <%= mascota.edad %>
+                        </td>
+                        <td>
+                            <%= mascota.especie %>
+                        </td>
+                        <td>
+                            <%= mascota.raza %>
+                        </td>
+                        <td>
+                            <%= mascota.diagnostico %>
+                        </td>
+                        <td>
+                            <a href="/info/<%= mascota._id %>" class="btn btn-outline-info bi bi-book-half"></a>
+                        </td>
+
+                        <td>
+                            <a href="/edit/<%= mascota._id %>" type="button"
+                                class="btn btn-outline-primary bi bi-pencil"></a>
+                            <!-- <a href="/borrar/<%= mascota._id %>" class="btn btn-outline-danger bi bi-trash"></a> -->
+                            <a onclick="confirm('<%= mascota._id %>')" class="btn btn-outline-danger bi bi-trash"></a>
+                        </td>
+                    </tr>
+                    <% }) %>
+            </tbody>
+        </table>
+    </div>
+
+
+
+    <style>
+        .container {
+            max-width: 960px;
+        }
+    </style>
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function confirm(id) {
+            Swal.fire({
+                title: 'Estas seguro ?',
+                text: "Eliminar registro",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location = "/borrar/" + id;
+                } else {
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'info',
+                        title: 'Eliminacion cancelada',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                }
+            })
+        }
+
+        //*****************************
+        function doSearch()
+
+{
+
+    const tableReg = document.getElementById('tablaMascotas');
+
+    const searchText = document.getElementById('searchTerm').value.toLowerCase();
+
+    let total = 0;
+
+
+
+    // Recorremos todas las filas con contenido de la tabla
+
+    for (let i = 1; i < tableReg.rows.length; i++) {
+
+        // Si el td tiene la clase "noSearch" no se busca en su cntenido
+
+        if (tableReg.rows[i].classList.contains("noSearch")) {
+
+            continue;
+
+        }
+
+
+
+        let found = false;
+
+        const cellsOfRow = tableReg.rows[i].getElementsByTagName('td');
+
+        // Recorremos todas las celdas
+
+        for (let j = 0; j < cellsOfRow.length && !found; j++) {
+
+            const compareWith = cellsOfRow[j].innerHTML.toLowerCase();
+
+            // Buscamos el texto en el contenido de la celda
+
+            if (searchText.length == 0 || compareWith.indexOf(searchText) > -1) {
+
+                found = true;
+
+                total++;
+
+            }
+
+        }
+
+        if (found) {
+
+            tableReg.rows[i].style.display = '';
+
+        } else {
+
+            // si no ha encontrado ninguna coincidencia, esconde la
+
+            // fila de la tabla
+
+            tableReg.rows[i].style.display = 'none';
+
+        }
+
+    }
+
+
+
+    // mostramos las coincidencias
+
+    const lastTR=tableReg.rows[tableReg.rows.length-1];
+
+    const td=lastTR.querySelector("td");
+
+    lastTR.classList.remove("hide", "red");
+
+    if (searchText == "") {
+
+        lastTR.classList.add("hide");
+
+    } else if (total) {
+
+        td.innerHTML="Se ha encontrado "+total+" coincidencia"+((total>1)?"s":"");
+
+    } else {
+
+        lastTR.classList.add("red");
+
+        td.innerHTML="No se han encontrado coincidencias";
+
+    }
+
+}
+
+
+    </script>
+
+</body>
+
+</html>
